@@ -1,0 +1,30 @@
+{
+  "name": "@homestead/cli",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "bin": {
+    "homestead": "dist/bin/homestead.js"
+  },
+  "scripts": {
+    "build": "pnpm --filter @homestead/sdk build && tsc -p tsconfig.build.json && node -e \"require('node:fs').cpSync('skills','dist/skills',{recursive:true})\"",
+    "typecheck": "pnpm --filter @homestead/sdk build && tsc --noEmit --pretty false",
+    "test": "vitest run",
+    "test:integration": "pnpm build && vitest run --config vitest.integration.config.ts",
+    "test:integration:local": "HOMESTEAD_CLI_INTEGRATION_TARGET=local pnpm test:integration",
+    "test:integration:remote": "HOMESTEAD_CLI_INTEGRATION_TARGET=remote pnpm test:integration",
+    "check": "pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "commander": "^15.0.0",
+    "zod": "^4.4.3",
+    "@homestead/sdk": "workspace:*"
+  },
+  "description": "Command-line interface for Homestead",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ]
+}
