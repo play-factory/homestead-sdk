@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "pnpm --filter @homestead/sdk build && tsc -p tsconfig.build.json && node -e \"require('node:fs').cpSync('skills','dist/skills',{recursive:true})\"",
+    "prepare": "pnpm build",
     "typecheck": "pnpm --filter @homestead/sdk build && tsc --noEmit --pretty false",
     "test": "vitest run",
     "test:integration": "pnpm build && vitest run --config vitest.integration.config.ts",
