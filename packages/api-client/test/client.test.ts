@@ -176,7 +176,22 @@ describe("homestead API client", () => {
 		});
 
 		await expect(
-			client.postAgentMessage({ homeId: "home_1", message: "tasks" }),
+			client.postAgentMessage({
+				homeId: "home_1",
+				message: "tasks",
+				conversationContext: {
+					recentMessages: [{ role: "assistant", text: "I found 1 task." }],
+					recentReferences: [
+						{
+							label: "first task",
+							kind: "task",
+							id: "task_1",
+							title: "Clean gutters",
+						},
+					],
+					recentPlanEvents: [],
+				},
+			}),
 		).resolves.toStrictEqual({
 			status: "ok",
 			value: { data: { kind: "answer", message: "I found 0 tasks." } },
@@ -194,7 +209,7 @@ describe("homestead API client", () => {
 			value: { data: { kind: "rejected" } },
 		});
 		expect(requests).toStrictEqual([
-			'POST https://api.example.com/api/v1/agent/messages {"homeId":"home_1","message":"tasks"}',
+			'POST https://api.example.com/api/v1/agent/messages {"homeId":"home_1","message":"tasks","conversationContext":{"recentMessages":[{"role":"assistant","text":"I found 1 task."}],"recentReferences":[{"label":"first task","kind":"task","id":"task_1","title":"Clean gutters"}],"recentPlanEvents":[]}}',
 			"POST https://api.example.com/api/v1/agent/plans/plan_1/approve ",
 			"POST https://api.example.com/api/v1/agent/plans/plan_1/reject ",
 		]);

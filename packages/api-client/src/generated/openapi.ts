@@ -3571,9 +3571,40 @@ export type components = {
                 anchor?: "scheduled_due_date" | "completion_date";
             } | null;
         };
+        AgentConversationContext: {
+            recentMessages: {
+                /** @enum {string} */
+                role: "user" | "assistant";
+                text: string;
+            }[];
+            pendingPlan?: {
+                id: string;
+                homeId: string;
+                /** @enum {string} */
+                status: "pending_approval" | "approved" | "executed" | "rejected" | "failed";
+                actions: (components["schemas"]["AgentListAssetsAction"] | components["schemas"]["AgentListTasksAction"] | components["schemas"]["AgentCreateAssetAction"] | components["schemas"]["AgentCreateTaskAction"] | components["schemas"]["AgentCompleteTaskAction"] | components["schemas"]["AgentRescheduleTaskAction"])[];
+                summary: string;
+                createdAt: string;
+                updatedAt: string;
+            };
+            recentReferences: {
+                label: string;
+                /** @enum {string} */
+                kind: "task" | "asset";
+                id: string;
+                title?: string;
+                name?: string;
+            }[];
+            recentPlanEvents: {
+                planId: string;
+                /** @enum {string} */
+                outcome: "approved" | "rejected";
+            }[];
+        };
         PostAgentMessageRequestBody: {
             homeId: string;
             message: string;
+            conversationContext?: components["schemas"]["AgentConversationContext"];
         };
         AgentPlanApprovalSuccessEnvelope: {
             data: {
