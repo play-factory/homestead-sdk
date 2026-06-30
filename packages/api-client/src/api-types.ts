@@ -112,8 +112,36 @@ export type PatchAssetRequestBody =
 	components["schemas"]["PatchAssetRequestBody"];
 export type ListTasksSuccessEnvelope =
 	components["schemas"]["ListTasksSuccessEnvelope"];
-export type PostAgentMessageRequestBody =
-	components["schemas"]["PostAgentMessageRequestBody"];
+export type AgentConversationReference =
+	| {
+			readonly label: string;
+			readonly kind: "task";
+			readonly id: string;
+			readonly title?: string | undefined;
+	  }
+	| {
+			readonly label: string;
+			readonly kind: "asset";
+			readonly id: string;
+			readonly name?: string | undefined;
+	  };
+export type AgentConversationContext = {
+	readonly recentMessages: readonly {
+		readonly role: "user" | "assistant";
+		readonly text: string;
+	}[];
+	readonly pendingPlan?: AgentPlan | undefined;
+	readonly recentReferences: readonly AgentConversationReference[];
+	readonly recentPlanEvents: readonly {
+		readonly planId: string;
+		readonly outcome: "approved" | "rejected";
+	}[];
+};
+export type PostAgentMessageRequestBody = {
+	readonly homeId: string;
+	readonly message: string;
+	readonly conversationContext?: AgentConversationContext | undefined;
+};
 export type AgentCreateTaskBody = {
 	readonly assetId?: string | undefined;
 	readonly title: string;
