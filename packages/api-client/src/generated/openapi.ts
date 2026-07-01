@@ -3605,6 +3605,7 @@ export type components = {
             homeId: string;
             message: string;
             conversationContext?: components["schemas"]["AgentConversationContext"];
+            browserTimeZone?: string;
         };
         AgentPlanApprovalSuccessEnvelope: {
             data: {

@@ -141,6 +141,7 @@ export type PostAgentMessageRequestBody = {
 	readonly homeId: string;
 	readonly message: string;
 	readonly conversationContext?: AgentConversationContext | undefined;
+	readonly browserTimeZone?: string | undefined;
 };
 export type AgentCreateTaskBody = {
 	readonly assetId?: string | undefined;
