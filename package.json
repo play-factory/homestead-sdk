@@ -13,6 +13,7 @@
     "typecheck": "pnpm --filter './packages/*' typecheck",
     "test": "pnpm --filter './packages/*' test",
     "check": "pnpm typecheck && pnpm test",
+    "reconcile": "bash scripts/reconcile-intent.sh",
     "pack:dry-run": "pnpm --filter './packages/*' exec npm pack --dry-run"
   },
   "engines": {

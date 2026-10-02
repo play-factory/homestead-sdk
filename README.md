@@ -2,6 +2,8 @@
 
 Public TypeScript SDK/API client and command-line interface for Homestead.
 
+The human-owned desired state used by the declarative-software reconciler lives in [`.intent/`](.intent/). See the [declarative software workflow](docs/declarative-software.md) for setup, reconciliation, bug-reporting, and review guidance.
+
 This repository contains:
 
 - `@homestead/sdk`: typed TypeScript SDK/API client for the Homestead API
